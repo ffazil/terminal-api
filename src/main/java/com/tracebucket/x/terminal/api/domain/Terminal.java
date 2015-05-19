@@ -1,5 +1,6 @@
 package com.tracebucket.x.terminal.api.domain;
 
+import com.tracebucket.tron.ddd.annotation.DomainMethod;
 import com.tracebucket.tron.ddd.domain.BaseAggregateRoot;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Terminal extends BaseAggregateRoot{
     @Basic(fetch = FetchType.EAGER)
     private String name;
 
-    @Column(name = "ID", nullable = false, unique = true)
+    @Column(name = "TERMINAL_ID", nullable = false, unique = true)
     @Basic(fetch = FetchType.EAGER)
     private String id;
 
@@ -25,6 +26,8 @@ public class Terminal extends BaseAggregateRoot{
     @Basic(fetch = FetchType.EAGER)
     private String macId;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "POSITION__ID")
     private Position position;
 
     //For JPA container
@@ -40,6 +43,7 @@ public class Terminal extends BaseAggregateRoot{
     }
 
     //Place a terminal in a position
+    @DomainMethod(event = "PlaceTerminal")
     public void place(Position position){
         this.position = position;
     }

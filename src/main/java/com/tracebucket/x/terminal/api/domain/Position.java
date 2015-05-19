@@ -1,6 +1,5 @@
 package com.tracebucket.x.terminal.api.domain;
 
-import com.tracebucket.tron.ddd.domain.BaseAggregateRoot;
 import com.tracebucket.tron.ddd.domain.BaseEntity;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class Position extends BaseEntity{
     @Basic(fetch = FetchType.EAGER)
     private String name;
 
-
+    @Embedded
     private PositionType positionType;
 
     @Column(name = "CODE", nullable = false, unique = true)
